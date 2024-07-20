@@ -32,14 +32,17 @@ public class StudentSurveyController {
 		System.out.println("StudentSurveyController initialized");
 	}
 
-	@PostMapping
+	@PostMapping("/surveys")
 	public void saveSurvey(@RequestBody String survey) {
 		System.out.println("POST received");
+		System.out.println(survey);
+		// TODO: Send to SQL
 		//return new ResponseEntity<StudentSurvey>(surveyRepository.save(survey), HttpStatus.CREATED);
 	}
 
 	@GetMapping("/surveys")
 	public ResponseEntity<String> getAllSurveys() {
+		System.out.println("Received GET from client");
 		return ResponseEntity.ok().contentType(MediaType.TEXT_PLAIN).body("HI");
 	}
 
