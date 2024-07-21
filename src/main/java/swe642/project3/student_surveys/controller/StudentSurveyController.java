@@ -1,5 +1,6 @@
 package swe642.project3.student_surveys.controller;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,17 +34,17 @@ public class StudentSurveyController {
 	}
 
 	@PostMapping("/surveys")
-	public void saveSurvey(@RequestBody String survey) {
+	public ResponseEntity<String> saveSurvey(@RequestBody StudentSurvey survey) {
 		System.out.println("POST received");
-		System.out.println(survey);
-		// TODO: Send to SQL
-		//return new ResponseEntity<StudentSurvey>(surveyRepository.save(survey), HttpStatus.CREATED);
+		System.out.println(survey.toString());
+		surveyRepository.save(survey);
+		return new ResponseEntity<>("Survey data received and saved successfully", HttpStatus.CREATED);
 	}
 
 	@GetMapping("/surveys")
-	public ResponseEntity<String> getAllSurveys() {
+	public List<StudentSurvey> getAllSurveys() {
 		System.out.println("Received GET from client");
-		return ResponseEntity.ok().contentType(MediaType.TEXT_PLAIN).body("HI");
+		return surveyRepository.findAll();
 	}
 
 	@GetMapping("{email}")

@@ -28,6 +28,9 @@ public class StudentSurvey {
 	@Column(name = "streetAddress", nullable = false)
 	private String streetAddress;
 	
+	@Column(name = "country", nullable = false)
+	private String country;
+	
 	@Column(name = "city", nullable = false)
 	private String city;
 	
@@ -35,10 +38,10 @@ public class StudentSurvey {
 	private String state;
 	
 	@Column(name = "zipCode", nullable = false)
-	private Integer zipCode;
+	private String zipCode;
 	
 	@Column(name = "phoneNumber", nullable = false)
-	private Integer phoneNumber;
+	private String phoneNumber;
 	
 	@Column(name = "likedMost_students", nullable = false)
 	private boolean likedMost_students;
@@ -106,6 +109,14 @@ public class StudentSurvey {
 	public void setStreetAddress(String streetAddress) {
 		this.streetAddress = streetAddress;
 	}
+	
+	public String getCountry() {
+		return country;
+	}
+	
+	public void setCountry(String country) {
+		this.country = country;
+	}
 
 	public String getCity() {
 		return city;
@@ -123,19 +134,19 @@ public class StudentSurvey {
 		this.state = state;
 	}
 
-	public Integer getZipCode() {
+	public String getZipCode() {
 		return zipCode;
 	}
 
-	public void setZipCode(Integer zipCode) {
+	public void setZipCode(String zipCode) {
 		this.zipCode = zipCode;
 	}
 
-	public Integer getPhoneNumber() {
+	public String getPhoneNumber() {
 		return phoneNumber;
 	}
 
-	public void setPhoneNumber(Integer phoneNumber) {
+	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
 
