@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import swe642.project3.student_surveys.exception.ResourceNotFoundException;
@@ -21,7 +22,9 @@ import swe642.project3.student_surveys.model.StudentSurvey;
 import swe642.project3.student_surveys.repository.StudentSurveyRepository;
 
 @RestController
+@RequestMapping("/surveys")
 @CrossOrigin(origins = "http://localhost:4200")  
+
 public class StudentSurveyController {
 
 	@Autowired
@@ -33,7 +36,7 @@ public class StudentSurveyController {
 		System.out.println("StudentSurveyController initialized");
 	}
 
-	@PostMapping("/surveys")
+	@PostMapping
 	public ResponseEntity<String> saveSurvey(@RequestBody StudentSurvey survey) {
 		System.out.println("POST received");
 		System.out.println(survey.toString());
@@ -41,7 +44,7 @@ public class StudentSurveyController {
 		return new ResponseEntity<>("Survey data received and saved successfully", HttpStatus.CREATED);
 	}
 
-	@GetMapping("/surveys")
+	@GetMapping
 	public List<StudentSurvey> getAllSurveys() {
 		System.out.println("Received GET from client");
 		return surveyRepository.findAll();
@@ -60,11 +63,13 @@ public class StudentSurveyController {
 	@PutMapping("{email}")
 	public ResponseEntity<StudentSurvey> updateSurvey(@PathVariable("email") String email,
 			@RequestBody StudentSurvey survey) {
+		System.out.println("Received PUT from client");
 		Optional<StudentSurvey> existingSurvey = surveyRepository.findById(email);
 		if (existingSurvey.isPresent()) {
 			StudentSurvey updateSurvey = existingSurvey.get();
 			updateSurvey.setFirstName(survey.getFirstName());
 			updateSurvey.setLastName(survey.getLastName());
+			updateSurvey.setCountry(survey.getCountry());
 			updateSurvey.setEmail(survey.getEmail());
 			updateSurvey.setDate(survey.getDate());
 			updateSurvey.setStreetAddress(survey.getStreetAddress());
@@ -90,6 +95,7 @@ public class StudentSurveyController {
 
 	@DeleteMapping("{email}")
 	public ResponseEntity<String> deleteSurvey(@PathVariable("email") String email) {
+		System.out.println("Received DELETE from client");
 		Optional<StudentSurvey> survey = surveyRepository.findById(email);
 		if (survey.isPresent()) {
 			surveyRepository.deleteById(email);
